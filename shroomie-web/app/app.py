@@ -89,8 +89,8 @@ def analyze():
     # Add other options
     if data.get('grid') == 'true':
         args_dict['grid'] = True
-        args_dict['grid_size'] = int(data.get('grid-size', 3))
-        args_dict['grid_distance'] = float(data.get('grid-distance', 1.0))
+        args_dict['grid-size'] = int(data.get('grid-size', 3))
+        args_dict['grid-distance'] = float(data.get('grid-distance', 1.0))
     
     # Always generate prompt (for readable output)
     args_dict['prompt'] = True
