@@ -16,12 +16,43 @@ This script accesses various APIs to collect environmental data about a location
 ## Installation
 
 ```bash
-# Install dependencies
+# Install as a package
+pip install -e .
+
+# Or install dependencies only
 pip install -r requirements.txt
 
 # Setup environment variables (optional)
 cp .env.example .env
 # Edit .env with your API keys and settings
+```
+
+## Code Structure
+
+The code has been refactored into a modular structure:
+
+```
+shroomie/
+├── __init__.py
+├── apis/                 # API client implementations
+│   ├── __init__.py
+│   ├── forest_apis.py    # Forest and tree species APIs
+│   ├── location_apis.py  # Location and elevation APIs
+│   ├── soil_apis.py      # Soil data APIs
+│   └── weather_apis.py   # Weather data APIs
+├── cli/                  # Command-line interface
+│   ├── __init__.py
+│   ├── cli_parser.py     # Command-line argument parser
+│   └── main.py           # Main entry point
+├── models/               # Data models
+│   ├── __init__.py
+│   ├── coordinate.py     # Coordinate handling and conversions
+│   └── soil_data.py      # Soil data models
+└── utils/                # Utility functions
+    ├── __init__.py
+    ├── grid_utils.py     # Grid calculation utilities
+    ├── map_generator.py  # Map generation utilities
+    └── prompt_generator.py  # LLM prompt generation
 ```
 
 ## Usage
