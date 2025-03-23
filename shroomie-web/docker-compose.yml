@@ -15,3 +15,5 @@ services:
       - FLASK_APP=app.py
       - FLASK_ENV=production
     restart: unless-stopped
+    # Direct command instead of relying on entrypoint
+    command: sh -c "pip install -e /shroomie && python app.py"

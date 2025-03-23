@@ -10,8 +10,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app /app/
 COPY entrypoint.sh /app/
 
-# Make the entrypoint executable
-RUN chmod +x /app/entrypoint.sh
+# Make the entrypoint executable and fix line endings
+RUN chmod +x /app/entrypoint.sh && \
+    sed -i 's/\r$//' /app/entrypoint.sh
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
@@ -22,4 +23,4 @@ ENV FLASK_ENV=production
 EXPOSE 5000
 
 # Set the entrypoint
-ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["/bin/sh", "/app/entrypoint.sh"]

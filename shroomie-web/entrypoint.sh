@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 # Install the shroomie package from the mounted volume
 pip install -e /shroomie
 
 # Start the Flask application
-exec python app.py
+python app.py
