@@ -224,18 +224,15 @@ def generate_map_html(lat, lon, zoom=10, include_soil_data=None, is_grid=False, 
         
         # Create a map with optimized settings
         if is_grid:
-            # For grid maps, use the same base map configuration as single point maps
+            # Use exactly the same initialization as single point mode
+            # Default to OpenStreetMap tiles which is Folium's default
             my_map = folium.Map(
                 location=[lat, lon],
                 zoom_start=zoom,
-                prefer_canvas=True,  # Use canvas renderer for better performance
-                control_scale=True
+                control_scale=True,
+                tiles='OpenStreetMap',  # Explicitly set to match single point default
+                prefer_canvas=True  # Use canvas renderer for better performance
             )
-            
-            # Add the same tile layers as single point mode for consistency
-            folium.TileLayer('cartodbpositron', name='Light Mode').add_to(my_map)
-            folium.TileLayer('cartodbdark_matter', name='Dark Mode').add_to(my_map)
-            folium.LayerControl().add_to(my_map)
             
             # Calculate grid coordinates
             coordinates = GridUtils.calculate_grid_coordinates(lat, lon, grid_size, grid_distance)
@@ -378,17 +375,13 @@ def generate_map_html(lat, lon, zoom=10, include_soil_data=None, is_grid=False, 
             my_map.fit_bounds([[min_lat, min_lon], [max_lat, max_lon]])
             
         else:
-            # Single point map - simpler optimization
+            # Single point map with default OpenStreetMap tiles
             my_map = folium.Map(
                 location=[lat, lon],
                 zoom_start=zoom,
-                control_scale=True
+                control_scale=True,
+                tiles='OpenStreetMap'  # Explicitly set to ensure consistency
             )
-            
-            # Create tile layer options
-            folium.TileLayer('cartodbpositron', name='Light Mode').add_to(my_map)
-            folium.TileLayer('cartodbdark_matter', name='Dark Mode').add_to(my_map)
-            folium.LayerControl().add_to(my_map)
             
             # Create enhanced popup content from the extracted data
             if enhanced_data:
