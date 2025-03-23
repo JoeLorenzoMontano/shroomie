@@ -224,14 +224,18 @@ def generate_map_html(lat, lon, zoom=10, include_soil_data=None, is_grid=False, 
         
         # Create a map with optimized settings
         if is_grid:
-            # For grid maps, start with a lower zoom level and let auto-fit handle it
+            # For grid maps, use the same base map configuration as single point maps
             my_map = folium.Map(
                 location=[lat, lon],
                 zoom_start=zoom,
                 prefer_canvas=True,  # Use canvas renderer for better performance
-                control_scale=True,
-                tiles='CartoDB positron',  # Lightweight tile layer
+                control_scale=True
             )
+            
+            # Add the same tile layers as single point mode for consistency
+            folium.TileLayer('cartodbpositron', name='Light Mode').add_to(my_map)
+            folium.TileLayer('cartodbdark_matter', name='Dark Mode').add_to(my_map)
+            folium.LayerControl().add_to(my_map)
             
             # Calculate grid coordinates
             coordinates = GridUtils.calculate_grid_coordinates(lat, lon, grid_size, grid_distance)
