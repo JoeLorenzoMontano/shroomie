@@ -95,7 +95,15 @@ def analyze():
     # Add map option
     if data.get('map') == 'true':
         args_dict['map'] = True
-        args_dict['map-output'] = 'static/location_map.html'
+        
+        # Ensure static directory exists
+        os.makedirs('app/static', exist_ok=True)
+        
+        # Set appropriate output path
+        if data.get('grid') == 'true':
+            args_dict['map-output'] = 'app/static/grid_location_map.html'
+        else:
+            args_dict['map-output'] = 'app/static/location_map.html'
     
     # Always generate prompt (for readable output)
     args_dict['prompt'] = True
