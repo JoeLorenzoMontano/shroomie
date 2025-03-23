@@ -1,0 +1,71 @@
+/* Additional custom styles for Shroomie Web */
+
+.mushroom-icon {
+    max-width: 50px;
+    margin-right: 10px;
+}
+
+.footer {
+    margin-top: 50px;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e7e7e7;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.results-actions button {
+    margin-left: 5px;
+}
+
+.mushroom-category {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f1f8e9;
+}
+
+.location-marker {
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+/* Styles for different result sections */
+.terrain-info {
+    border-left: 4px solid #4caf50;
+    padding-left: 10px;
+    margin: 10px 0;
+}
+
+.soil-info {
+    border-left: 4px solid #795548;
+    padding-left: 10px;
+    margin: 10px 0;
+}
+
+.weather-info {
+    border-left: 4px solid #03a9f4;
+    padding-left: 10px;
+    margin: 10px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .jumbotron {
+        padding: 1rem;
+    }
+    
+    .results {
+        max-height: 500px;
+    }
+}
