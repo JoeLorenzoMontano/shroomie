@@ -191,8 +191,8 @@
                 
                 data.grid = gridCheckbox.checked ? 'true' : 'false';
                 if (gridCheckbox.checked) {
-                    data.grid_size = document.getElementById('grid-size').value;
-                    data.grid_distance = document.getElementById('grid-distance').value;
+                    data["grid-size"] = document.getElementById('grid-size').value;
+                    data["grid-distance"] = document.getElementById('grid-distance').value;
                 }
                 
                 try {
