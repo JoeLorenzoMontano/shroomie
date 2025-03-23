@@ -139,7 +139,13 @@
                     <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
-                    <p>Analyzing data... This may take a few moments.</p>
+                    <p id="loading-message">Analyzing data... This may take a few moments.</p>
+                    <div class="progress mt-3" style="height: 20px;">
+                        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 0%;" 
+                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                    </div>
+                    <div class="small text-muted mt-2" id="progress-status">Starting analysis...</div>
                 </div>
                 <div class="results" id="results">
                     <p class="text-muted">Results will appear here after analysis...</p>
@@ -218,6 +224,46 @@
                 data.map = mapCheckbox.checked ? 'true' : 'false';
                 
                 try {
+                    // Show loading UI with progress simulation
+                    const progressBar = document.getElementById('progress-bar');
+                    const progressStatus = document.getElementById('progress-status');
+                    let progress = 0;
+                    
+                    // Function to update progress simulation
+                    const updateProgress = () => {
+                        if (progress < 90) {
+                            // Calculate increment based on grid size for more accurate simulation
+                            let increment = 5;
+                            if (data.grid === 'true') {
+                                const gridSize = parseInt(data['grid-size'] || 3);
+                                // Larger grids take longer, so slow down progress
+                                increment = Math.max(1, 10 - gridSize);
+                            }
+                            
+                            progress += increment * (Math.random() * 0.5 + 0.5); // Add randomness
+                            progress = Math.min(progress, 90); // Cap at 90%
+                            
+                            progressBar.style.width = `${progress}%`;
+                            progressBar.setAttribute('aria-valuenow', progress);
+                            progressBar.textContent = `${Math.round(progress)}%`;
+                            
+                            // Update status message based on progress
+                            if (progress < 30) {
+                                progressStatus.textContent = 'Retrieving location data...';
+                            } else if (progress < 60) {
+                                progressStatus.textContent = 'Fetching environmental data...';
+                            } else if (progress < 80) {
+                                progressStatus.textContent = 'Processing results...';
+                            } else {
+                                progressStatus.textContent = 'Generating visualization...';
+                            }
+                        }
+                    };
+                    
+                    // Start progress updates
+                    const progressInterval = setInterval(updateProgress, 300);
+                    updateProgress(); // Initial update
+                    
                     // Send the request
                     const response = await fetch('/analyze', {
                         method: 'POST',
@@ -229,8 +275,18 @@
                     
                     const responseData = await response.json();
                     
-                    // Hide loading indicator
-                    loading.style.display = 'none';
+                    // Complete progress bar
+                    clearInterval(progressInterval);
+                    progress = 100;
+                    progressBar.style.width = '100%';
+                    progressBar.setAttribute('aria-valuenow', 100);
+                    progressBar.textContent = '100%';
+                    progressStatus.textContent = 'Analysis complete!';
+                    
+                    // Hide loading indicator after a slight delay to show 100%
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+                    }, 300);
                     
                     // Display results
                     if (responseData.error) {
@@ -246,6 +302,15 @@
                                     <div id="map-container" style="height: 400px; border: 1px solid #ddd;">
                                         ${responseData.map_html}
                                     </div>
+                                </div>
+                            `;
+                        }
+                        
+                        // Add processing time if available
+                        if (responseData.processing_time) {
+                            resultsHTML += `
+                                <div class="text-muted mt-3 small">
+                                    Processing time: ${responseData.processing_time} seconds
                                 </div>
                             `;
                         }

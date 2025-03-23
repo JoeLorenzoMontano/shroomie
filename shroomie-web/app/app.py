@@ -11,6 +11,8 @@ from shroomie.utils.map_generator import MapGenerator
 from shroomie.utils.grid_utils import GridUtils
 from shroomie.apis.soil_apis import SoilAPI
 from shroomie.apis.location_apis import LocationAPI
+from shroomie.apis.forest_apis import ForestAPI
+from shroomie.apis.weather_apis import WeatherAPI
 
 app = Flask(__name__)
 
@@ -42,6 +44,9 @@ def create_web_parser():
     
     return parser
 
+# Cache for API results to avoid redundant API calls
+api_cache = {}
+
 # Capture stdout when running the Shroomie CLI
 def run_shroomie_with_args(args_dict):
     # Prepare arguments
@@ -54,14 +59,68 @@ def run_shroomie_with_args(args_dict):
                 sys.argv.append(f"--{key}")
                 sys.argv.append(str(value))
     
+    # Create a cache key based on the arguments
+    # This allows us to cache results for identical requests
+    cache_key = str(sorted(args_dict.items()))
+    
+    # Check if we have cached results for this exact query
+    if cache_key in api_cache:
+        return api_cache[cache_key]
+    
     # Capture stdout
     original_stdout = sys.stdout
     sys.stdout = mystdout = StringIO()
     
     try:
+        # Apply monkey patching to add caching to API calls
+        # This helps speed up repeated API calls within the same session
+        
+        # Cache the original methods
+        original_soil_properties = SoilAPI.get_soil_properties
+        original_forest_cover = ForestAPI.get_forest_cover
+        original_weather = WeatherAPI.get_weather_history
+        
+        # Create local caches
+        soil_cache = {}
+        forest_cache = {}
+        weather_cache = {}
+        
+        # Create cached versions of slow API methods
+        def cached_soil_properties(lat, lon, *args, **kwargs):
+            cache_key = f"{lat}_{lon}"
+            if cache_key not in soil_cache:
+                soil_cache[cache_key] = original_soil_properties(lat, lon, *args, **kwargs)
+            return soil_cache[cache_key]
+        
+        def cached_forest_cover(lat, lon, *args, **kwargs):
+            cache_key = f"{lat}_{lon}"
+            if cache_key not in forest_cache:
+                forest_cache[cache_key] = original_forest_cover(lat, lon, *args, **kwargs)
+            return forest_cache[cache_key]
+        
+        def cached_weather_history(lat, lon, *args, **kwargs):
+            cache_key = f"{lat}_{lon}"
+            if cache_key not in weather_cache:
+                weather_cache[cache_key] = original_weather(lat, lon, *args, **kwargs)
+            return weather_cache[cache_key]
+        
+        # Apply the monkey patches
+        SoilAPI.get_soil_properties = cached_soil_properties
+        ForestAPI.get_forest_cover = cached_forest_cover
+        WeatherAPI.get_weather_history = cached_weather_history
+        
         # Run the main function
         shroomie_main()
         output = mystdout.getvalue()
+        
+        # Cache the result
+        api_cache[cache_key] = output
+        
+        # Restore original methods
+        SoilAPI.get_soil_properties = original_soil_properties
+        ForestAPI.get_forest_cover = original_forest_cover
+        WeatherAPI.get_weather_history = original_weather
+        
     except Exception as e:
         output = f"Error: {str(e)}"
     finally:
@@ -243,9 +302,13 @@ def generate_map_html(lat, lon, zoom=10, include_soil_data=None, is_grid=False, 
     except Exception as e:
         return f"<div class='alert alert-danger'>Error generating map: {str(e)}</div>"
 
+from concurrent.futures import ThreadPoolExecutor
+import time
+
 @app.route('/analyze', methods=['POST'])
 def analyze():
     data = request.json
+    start_time = time.time()
     
     # Process the input data
     args_dict = {}
@@ -283,27 +346,55 @@ def analyze():
         args_dict['grid-size'] = grid_size
         args_dict['grid-distance'] = grid_distance
     
-    # Handle map
+    # Use parallel processing for generating map and running data retrieval
     map_html = None
-    if data.get('map') == 'true' and lat is not None and lon is not None:
-        map_html = generate_map_html(
-            lat=lat, 
-            lon=lon,
-            zoom=10,
-            is_grid=is_grid,
-            grid_size=grid_size,
-            grid_distance=grid_distance
-        )
+    output = None
     
-    # Always generate prompt (for readable output)
-    args_dict['prompt'] = True
+    # Define functions for parallel execution
+    def generate_map():
+        if data.get('map') == 'true' and lat is not None and lon is not None:
+            return generate_map_html(
+                lat=lat, 
+                lon=lon,
+                zoom=10,
+                is_grid=is_grid,
+                grid_size=grid_size,
+                grid_distance=grid_distance
+            )
+        return None
     
-    # Run Shroomie
-    output = run_shroomie_with_args(args_dict)
+    def run_data_retrieval():
+        # Always generate prompt (for readable output)
+        args_dict['prompt'] = True
+        
+        # For grid mode, limit what we retrieve to speed things up
+        if is_grid and grid_size > 3:
+            # Skip soil properties for large grids as it's the slowest API
+            args_dict['soil-properties'] = False
+            
+            # If it's a very large grid, further optimize
+            if grid_size >= 5:
+                args_dict['forest'] = False
+        
+        # Run Shroomie with optimized parameters
+        return run_shroomie_with_args(args_dict)
+    
+    # Run map generation and data retrieval in parallel
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        map_future = executor.submit(generate_map)
+        data_future = executor.submit(run_data_retrieval)
+        
+        # Get results
+        map_html = map_future.result()
+        output = data_future.result()
+    
+    # Calculate processing time
+    processing_time = round(time.time() - start_time, 2)
     
     return jsonify({
         'output': output,
-        'map_html': map_html
+        'map_html': map_html,
+        'processing_time': processing_time
     })
 
 if __name__ == '__main__':
