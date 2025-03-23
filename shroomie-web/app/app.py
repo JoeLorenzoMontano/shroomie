@@ -92,6 +92,11 @@ def analyze():
         args_dict['grid-size'] = int(data.get('grid-size', 3))
         args_dict['grid-distance'] = float(data.get('grid-distance', 1.0))
     
+    # Add map option
+    if data.get('map') == 'true':
+        args_dict['map'] = True
+        args_dict['map-output'] = 'static/location_map.html'
+    
     # Always generate prompt (for readable output)
     args_dict['prompt'] = True
     

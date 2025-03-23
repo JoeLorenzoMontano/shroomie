@@ -87,7 +87,13 @@
                         </div>
 
                         <div class="mb-3">
-                            <h5>Grid Analysis</h5>
+                            <h5>Visualization Options</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="map" name="map">
+                                <label class="form-check-label" for="map">
+                                    Generate Interactive Map
+                                </label>
+                            </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="grid" name="grid">
                                 <label class="form-check-label" for="grid">
@@ -189,11 +195,16 @@
                     }
                 }
                 
+                // Add grid options
                 data.grid = gridCheckbox.checked ? 'true' : 'false';
                 if (gridCheckbox.checked) {
                     data["grid-size"] = document.getElementById('grid-size').value;
                     data["grid-distance"] = document.getElementById('grid-distance').value;
                 }
+                
+                // Add map option
+                const mapCheckbox = document.getElementById('map');
+                data.map = mapCheckbox.checked ? 'true' : 'false';
                 
                 try {
                     // Send the request
@@ -214,7 +225,24 @@
                     if (responseData.error) {
                         results.innerHTML = `<div class="alert alert-danger">${responseData.error}</div>`;
                     } else {
-                        results.innerHTML = `<pre>${responseData.output}</pre>`;
+                        let resultsHTML = `<pre>${responseData.output}</pre>`;
+                        
+                        // Check if map was generated and add link/embed
+                        if (data.map === 'true') {
+                            resultsHTML += `
+                                <div class="mt-4">
+                                    <h4>Interactive Map</h4>
+                                    <div class="mb-2">
+                                        <a href="/static/location_map.html" target="_blank" class="btn btn-sm btn-primary">Open Map in New Tab</a>
+                                    </div>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="/static/location_map.html" style="width: 100%; height: 400px; border: 1px solid #ddd;"></iframe>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        
+                        results.innerHTML = resultsHTML;
                     }
                 } catch (error) {
                     loading.style.display = 'none';
