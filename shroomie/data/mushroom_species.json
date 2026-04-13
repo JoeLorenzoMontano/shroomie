@@ -1,0 +1,370 @@
+{
+  "morels": {
+    "common_name": "Morels",
+    "scientific_name": "Morchella spp.",
+    "description": "Highly prized spring mushroom, often found after forest fires or in disturbed soil",
+    "requirements": {
+      "soil_ph": {
+        "min": 6.5,
+        "max": 7.5,
+        "optimal": 7.0
+      },
+      "tree_associations": {
+        "primary": ["Douglas Fir", "Red Alder", "Big Leaf Maple", "Black Cottonwood", "Oregon Ash"],
+        "secondary": ["Western Hemlock", "Grand Fir", "White Fir"]
+      },
+      "elevation": {
+        "min": 0,
+        "max": 1500,
+        "optimal_min": 300,
+        "optimal_max": 900
+      },
+      "moisture": {
+        "min": 40,
+        "max": 80,
+        "optimal": 60
+      },
+      "temperature": {
+        "min": 10,
+        "max": 21,
+        "optimal": 15.5
+      },
+      "season": {
+        "start_month": 3,
+        "end_month": 6,
+        "peak_month": 4
+      },
+      "substrate": ["Disturbed soil", "Burned areas", "Wood chips", "Leaf litter", "Sandy loam"]
+    },
+    "scoring_weights": {
+      "soil_ph": 0.15,
+      "tree_association": 0.25,
+      "elevation": 0.15,
+      "moisture": 0.20,
+      "temperature": 0.15,
+      "season": 0.10
+    }
+  },
+  "chanterelles": {
+    "common_name": "Chanterelles",
+    "scientific_name": "Cantharellus formosus / Cantharellus cascadensis",
+    "description": "Golden mushroom with distinctive fruity aroma, extremely popular in Pacific Northwest",
+    "requirements": {
+      "soil_ph": {
+        "min": 4.5,
+        "max": 6.5,
+        "optimal": 5.5
+      },
+      "tree_associations": {
+        "primary": ["Douglas Fir", "Western Hemlock", "Sitka Spruce", "Noble Fir"],
+        "secondary": ["Grand Fir", "Western Red Cedar", "Mountain Hemlock"]
+      },
+      "elevation": {
+        "min": 0,
+        "max": 1800,
+        "optimal_min": 200,
+        "optimal_max": 1200
+      },
+      "moisture": {
+        "min": 50,
+        "max": 90,
+        "optimal": 70
+      },
+      "temperature": {
+        "min": 10,
+        "max": 20,
+        "optimal": 15
+      },
+      "season": {
+        "start_month": 9,
+        "end_month": 11,
+        "peak_month": 10
+      },
+      "substrate": ["Forest floor", "Moss", "Duff layer", "Well-draining soil"]
+    },
+    "scoring_weights": {
+      "soil_ph": 0.20,
+      "tree_association": 0.30,
+      "elevation": 0.10,
+      "moisture": 0.20,
+      "temperature": 0.10,
+      "season": 0.10
+    }
+  },
+  "lobsters": {
+    "common_name": "Lobster Mushrooms",
+    "scientific_name": "Hypomyces lactifluorum",
+    "description": "Parasitic fungus that colonizes Russula and Lactarius species, turning them orange-red",
+    "requirements": {
+      "soil_ph": {
+        "min": 4.5,
+        "max": 6.5,
+        "optimal": 5.5
+      },
+      "tree_associations": {
+        "primary": ["Douglas Fir", "Western Hemlock", "Sitka Spruce"],
+        "secondary": ["True Firs", "Pines"]
+      },
+      "elevation": {
+        "min": 0,
+        "max": 1500,
+        "optimal_min": 300,
+        "optimal_max": 1000
+      },
+      "moisture": {
+        "min": 55,
+        "max": 85,
+        "optimal": 70
+      },
+      "temperature": {
+        "min": 12,
+        "max": 22,
+        "optimal": 17
+      },
+      "season": {
+        "start_month": 8,
+        "end_month": 10,
+        "peak_month": 9
+      },
+      "substrate": ["Forest floor", "Duff", "Coniferous litter"]
+    },
+    "scoring_weights": {
+      "soil_ph": 0.15,
+      "tree_association": 0.30,
+      "elevation": 0.10,
+      "moisture": 0.25,
+      "temperature": 0.10,
+      "season": 0.10
+    }
+  },
+  "oysters": {
+    "common_name": "Oyster Mushrooms",
+    "scientific_name": "Pleurotus ostreatus",
+    "description": "Saprobic mushroom growing on dead hardwood, available in cooler months",
+    "requirements": {
+      "soil_ph": {
+        "min": 5.5,
+        "max": 7.5,
+        "optimal": 6.5
+      },
+      "tree_associations": {
+        "primary": ["Red Alder", "Big Leaf Maple", "Black Cottonwood", "Oregon Ash"],
+        "secondary": ["Willow", "Poplar", "Aspen"]
+      },
+      "elevation": {
+        "min": 0,
+        "max": 800,
+        "optimal_min": 0,
+        "optimal_max": 400
+      },
+      "moisture": {
+        "min": 60,
+        "max": 95,
+        "optimal": 80
+      },
+      "temperature": {
+        "min": 4,
+        "max": 18,
+        "optimal": 12
+      },
+      "season": {
+        "start_month": 10,
+        "end_month": 4,
+        "peak_month": 11
+      },
+      "substrate": ["Dead hardwood logs", "Standing dead trees", "Stumps", "Branches"]
+    },
+    "scoring_weights": {
+      "soil_ph": 0.10,
+      "tree_association": 0.35,
+      "elevation": 0.10,
+      "moisture": 0.25,
+      "temperature": 0.10,
+      "season": 0.10
+    }
+  },
+  "matsutake": {
+    "common_name": "Matsutake",
+    "scientific_name": "Tricholoma matsutake",
+    "description": "Highly valued aromatic mushroom, culturally significant in Asian cuisine",
+    "requirements": {
+      "soil_ph": {
+        "min": 4.0,
+        "max": 6.0,
+        "optimal": 5.0
+      },
+      "tree_associations": {
+        "primary": ["Douglas Fir", "Ponderosa Pine", "Lodgepole Pine", "Shore Pine"],
+        "secondary": ["Western Hemlock", "True Firs"]
+      },
+      "elevation": {
+        "min": 200,
+        "max": 1800,
+        "optimal_min": 600,
+        "optimal_max": 1400
+      },
+      "moisture": {
+        "min": 40,
+        "max": 70,
+        "optimal": 55
+      },
+      "temperature": {
+        "min": 8,
+        "max": 18,
+        "optimal": 13
+      },
+      "season": {
+        "start_month": 9,
+        "end_month": 11,
+        "peak_month": 10
+      },
+      "substrate": ["Sandy soil", "Well-drained soil", "Duff layer"]
+    },
+    "scoring_weights": {
+      "soil_ph": 0.20,
+      "tree_association": 0.30,
+      "elevation": 0.15,
+      "moisture": 0.15,
+      "temperature": 0.10,
+      "season": 0.10
+    }
+  },
+  "porcini": {
+    "common_name": "Porcini (King Bolete)",
+    "scientific_name": "Boletus edulis",
+    "description": "Prized edible bolete with thick white stem and brown cap, mycorrhizal with conifers",
+    "requirements": {
+      "soil_ph": {
+        "min": 4.5,
+        "max": 6.5,
+        "optimal": 5.5
+      },
+      "tree_associations": {
+        "primary": ["Douglas Fir", "Western Hemlock", "Sitka Spruce", "Noble Fir"],
+        "secondary": ["Grand Fir", "Pines"]
+      },
+      "elevation": {
+        "min": 300,
+        "max": 1800,
+        "optimal_min": 600,
+        "optimal_max": 1400
+      },
+      "moisture": {
+        "min": 50,
+        "max": 80,
+        "optimal": 65
+      },
+      "temperature": {
+        "min": 10,
+        "max": 22,
+        "optimal": 16
+      },
+      "season": {
+        "start_month": 8,
+        "end_month": 11,
+        "peak_month": 9
+      },
+      "substrate": ["Forest floor", "Moss", "Duff", "Well-drained soil"]
+    },
+    "scoring_weights": {
+      "soil_ph": 0.20,
+      "tree_association": 0.30,
+      "elevation": 0.15,
+      "moisture": 0.15,
+      "temperature": 0.10,
+      "season": 0.10
+    }
+  },
+  "hedgehog": {
+    "common_name": "Hedgehog Mushroom",
+    "scientific_name": "Hydnum repandum",
+    "description": "Choice edible with tooth-like spines under cap, common in Pacific Northwest forests",
+    "requirements": {
+      "soil_ph": {
+        "min": 4.5,
+        "max": 6.5,
+        "optimal": 5.5
+      },
+      "tree_associations": {
+        "primary": ["Douglas Fir", "Western Hemlock", "Sitka Spruce"],
+        "secondary": ["Red Alder", "Big Leaf Maple", "True Firs"]
+      },
+      "elevation": {
+        "min": 0,
+        "max": 1500,
+        "optimal_min": 200,
+        "optimal_max": 1000
+      },
+      "moisture": {
+        "min": 55,
+        "max": 85,
+        "optimal": 70
+      },
+      "temperature": {
+        "min": 8,
+        "max": 20,
+        "optimal": 14
+      },
+      "season": {
+        "start_month": 9,
+        "end_month": 12,
+        "peak_month": 10
+      },
+      "substrate": ["Forest floor", "Moss", "Duff", "Mixed litter"]
+    },
+    "scoring_weights": {
+      "soil_ph": 0.15,
+      "tree_association": 0.25,
+      "elevation": 0.10,
+      "moisture": 0.25,
+      "temperature": 0.15,
+      "season": 0.10
+    }
+  },
+  "cauliflower": {
+    "common_name": "Cauliflower Mushroom",
+    "scientific_name": "Sparassis radicata",
+    "description": "Large, coral-like mushroom growing at base of conifers, parasitic on roots",
+    "requirements": {
+      "soil_ph": {
+        "min": 4.5,
+        "max": 6.5,
+        "optimal": 5.5
+      },
+      "tree_associations": {
+        "primary": ["Douglas Fir", "Western Hemlock", "Ponderosa Pine", "True Firs"],
+        "secondary": ["Sitka Spruce", "Other conifers"]
+      },
+      "elevation": {
+        "min": 100,
+        "max": 1600,
+        "optimal_min": 400,
+        "optimal_max": 1200
+      },
+      "moisture": {
+        "min": 50,
+        "max": 80,
+        "optimal": 65
+      },
+      "temperature": {
+        "min": 10,
+        "max": 20,
+        "optimal": 15
+      },
+      "season": {
+        "start_month": 8,
+        "end_month": 11,
+        "peak_month": 9
+      },
+      "substrate": ["Tree base", "Roots", "Stumps"]
+    },
+    "scoring_weights": {
+      "soil_ph": 0.15,
+      "tree_association": 0.35,
+      "elevation": 0.10,
+      "moisture": 0.20,
+      "temperature": 0.10,
+      "season": 0.10
+    }
+  }
+}

@@ -92,7 +92,35 @@
 
                         <div id="location-section" style="display: none;">
                             <div class="mb-3">
-                                <label for="location" class="form-label">Location Name</label>
+                                <label for="preset-location" class="form-label">Oregon Location Presets</label>
+                                <select class="form-select" id="preset-location">
+                                    <option value="">-- Select a preset or enter custom below --</option>
+                                    <optgroup label="Oregon Coast">
+                                        <option value="tillamook">Tillamook</option>
+                                        <option value="astoria">Astoria</option>
+                                        <option value="newport">Newport</option>
+                                        <option value="florence">Florence</option>
+                                    </optgroup>
+                                    <optgroup label="Willamette Valley">
+                                        <option value="portland">Portland</option>
+                                        <option value="salem">Salem</option>
+                                        <option value="eugene">Eugene</option>
+                                        <option value="mcminnville">McMinnville</option>
+                                        <option value="little_hebo">Little Hebo (near McMinnville) 🍄</option>
+                                        <option value="corvallis">Corvallis</option>
+                                    </optgroup>
+                                    <optgroup label="Cascade Mountains">
+                                        <option value="mount_hood">Mount Hood</option>
+                                        <option value="detroit_lake">Detroit Lake</option>
+                                        <option value="santiam_pass">Santiam Pass</option>
+                                        <option value="government_camp">Government Camp</option>
+                                        <option value="bend">Bend</option>
+                                        <option value="sisters">Sisters</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="location" class="form-label">Or Enter Custom Location</label>
                                 <input type="text" class="form-control" id="location" placeholder="e.g., Tillamook, Oregon">
                             </div>
                         </div>
@@ -126,6 +154,95 @@
                             <div class="mb-3">
                                 <label for="grid-distance" class="form-label">Grid Distance (miles)</label>
                                 <input type="number" step="0.1" class="form-control" id="grid-distance" value="1.0">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <h5>Mushroom Species Selection</h5>
+                            <p class="small text-muted">Select species to calculate suitability scores</p>
+                            <div class="form-check">
+                                <input class="form-check-input species-checkbox" type="checkbox" value="chanterelles" id="species-chanterelles">
+                                <label class="form-check-label" for="species-chanterelles">
+                                    Chanterelles
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input species-checkbox" type="checkbox" value="morels" id="species-morels">
+                                <label class="form-check-label" for="species-morels">
+                                    Morels
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input species-checkbox" type="checkbox" value="oysters" id="species-oysters">
+                                <label class="form-check-label" for="species-oysters">
+                                    Oyster Mushrooms
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input species-checkbox" type="checkbox" value="porcini" id="species-porcini">
+                                <label class="form-check-label" for="species-porcini">
+                                    Porcini (King Bolete)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input species-checkbox" type="checkbox" value="matsutake" id="species-matsutake">
+                                <label class="form-check-label" for="species-matsutake">
+                                    Matsutake
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input species-checkbox" type="checkbox" value="lobsters" id="species-lobsters">
+                                <label class="form-check-label" for="species-lobsters">
+                                    Lobster Mushrooms
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input species-checkbox" type="checkbox" value="hedgehog" id="species-hedgehog">
+                                <label class="form-check-label" for="species-hedgehog">
+                                    Hedgehog Mushroom
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input species-checkbox" type="checkbox" value="cauliflower" id="species-cauliflower">
+                                <label class="form-check-label" for="species-cauliflower">
+                                    Cauliflower Mushroom
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Find Best Spots Section -->
+                        <div class="mb-3">
+                            <h5>Find Best Spots 🎯</h5>
+                            <p class="small text-muted">Scan area to find top locations for selected species</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="true" id="find-best-spots">
+                                <label class="form-check-label" for="find-best-spots">
+                                    Enable "Find Best Spots" Mode
+                                </label>
+                            </div>
+                            <div id="best-spots-options" style="display: none; margin-top: 15px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
+                                <div class="mb-3">
+                                    <label for="search-radius" class="form-label">Search Radius</label>
+                                    <select class="form-select" id="search-radius">
+                                        <option value="5">5 miles</option>
+                                        <option value="10" selected>10 miles</option>
+                                        <option value="25">25 miles</option>
+                                        <option value="50">50 miles</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="min-suitability" class="form-label">Minimum Suitability Score: <span id="min-suitability-value">60</span></label>
+                                    <input type="range" class="form-range" id="min-suitability" min="0" max="100" value="60" step="5">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="top-n" class="form-label">Number of Top Spots</label>
+                                    <select class="form-select" id="top-n">
+                                        <option value="5">Top 5</option>
+                                        <option value="10" selected>Top 10</option>
+                                        <option value="15">Top 15</option>
+                                        <option value="20">Top 20</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
@@ -180,6 +297,52 @@
                 gridOptions.style.display = gridCheckbox.checked ? 'block' : 'none';
             });
 
+            // Toggle best spots options
+            const bestSpotsCheckbox = document.getElementById('find-best-spots');
+            const bestSpotsOptions = document.getElementById('best-spots-options');
+
+            bestSpotsCheckbox.addEventListener('change', function() {
+                bestSpotsOptions.style.display = bestSpotsCheckbox.checked ? 'block' : 'none';
+            });
+
+            // Update min suitability value display
+            const minSuitabilitySlider = document.getElementById('min-suitability');
+            const minSuitabilityValue = document.getElementById('min-suitability-value');
+
+            minSuitabilitySlider.addEventListener('input', function() {
+                minSuitabilityValue.textContent = this.value;
+            });
+
+            // Location presets mapping
+            const presetLocations = {
+                'tillamook': 'Tillamook, Oregon',
+                'astoria': 'Astoria, Oregon',
+                'newport': 'Newport, Oregon',
+                'florence': 'Florence, Oregon',
+                'portland': 'Portland, Oregon',
+                'salem': 'Salem, Oregon',
+                'eugene': 'Eugene, Oregon',
+                'mcminnville': 'McMinnville, Oregon',
+                'little_hebo': 'Little Hebo, Oregon',
+                'corvallis': 'Corvallis, Oregon',
+                'mount_hood': 'Mount Hood, Oregon',
+                'detroit_lake': 'Detroit Lake, Oregon',
+                'santiam_pass': 'Santiam Pass, Oregon',
+                'government_camp': 'Government Camp, Oregon',
+                'bend': 'Bend, Oregon',
+                'sisters': 'Sisters, Oregon'
+            };
+
+            // Handle location preset selection
+            const presetSelect = document.getElementById('preset-location');
+            const locationInput = document.getElementById('location');
+
+            presetSelect.addEventListener('change', function() {
+                if (this.value && presetLocations[this.value]) {
+                    locationInput.value = presetLocations[this.value];
+                }
+            });
+
             // Form submission
             const form = document.getElementById('shroomie-form');
             const results = document.getElementById('results');
@@ -222,7 +385,24 @@
                 // Add map option
                 const mapCheckbox = document.getElementById('map');
                 data.map = mapCheckbox.checked ? 'true' : 'false';
-                
+
+                // Collect selected species
+                const selectedSpecies = [];
+                document.querySelectorAll('.species-checkbox:checked').forEach(checkbox => {
+                    selectedSpecies.push(checkbox.value);
+                });
+                if (selectedSpecies.length > 0) {
+                    data.species = selectedSpecies;
+                }
+
+                // Add best spots parameters
+                if (bestSpotsCheckbox.checked) {
+                    data.find_best_spots = 'true';
+                    data.search_radius = document.getElementById('search-radius').value;
+                    data.min_suitability = document.getElementById('min-suitability').value;
+                    data.top_n = document.getElementById('top-n').value;
+                }
+
                 try {
                     // Show loading UI with progress simulation
                     const progressBar = document.getElementById('progress-bar');
@@ -292,8 +472,195 @@
                     if (responseData.error) {
                         results.innerHTML = `<div class="alert alert-danger">${responseData.error}</div>`;
                     } else {
-                        let resultsHTML = `<pre>${responseData.output}</pre>`;
-                        
+                        let resultsHTML = '';
+
+                        // Add species suitability scores if available
+                        if (responseData.species_scores && Object.keys(responseData.species_scores).length > 0) {
+                            resultsHTML += `
+                                <div class="mb-4">
+                                    <h4>🍄 Species Suitability Scores</h4>
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Species</th>
+                                                <th>Overall Score</th>
+                                                <th>Assessment</th>
+                                                <th>Key Factors</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                            `;
+
+                            for (const [speciesId, scoreData] of Object.entries(responseData.species_scores)) {
+                                const score = scoreData.score;
+                                const factorScores = scoreData.factor_scores || {};
+
+                                // Color code the score
+                                let scoreClass = 'text-danger';
+                                let assessment = 'Unsuitable';
+                                if (score >= 90) {
+                                    scoreClass = 'text-success fw-bold';
+                                    assessment = 'Excellent';
+                                } else if (score >= 75) {
+                                    scoreClass = 'text-success';
+                                    assessment = 'Very Good';
+                                } else if (score >= 60) {
+                                    scoreClass = 'text-primary';
+                                    assessment = 'Good';
+                                } else if (score >= 40) {
+                                    scoreClass = 'text-warning';
+                                    assessment = 'Fair';
+                                } else if (score >= 20) {
+                                    scoreClass = 'text-danger';
+                                    assessment = 'Poor';
+                                }
+
+                                // Format factor scores
+                                const topFactors = Object.entries(factorScores)
+                                    .sort((a, b) => b[1] - a[1])
+                                    .slice(0, 3)
+                                    .map(([factor, score]) => `${factor}: ${Math.round(score)}`)
+                                    .join(', ');
+
+                                resultsHTML += `
+                                    <tr>
+                                        <td><strong>${scoreData.common_name}</strong></td>
+                                        <td class="${scoreClass}">${Math.round(score)}/100</td>
+                                        <td>${assessment}</td>
+                                        <td class="small">${topFactors}</td>
+                                    </tr>
+                                `;
+                            }
+
+                            resultsHTML += `
+                                        </tbody>
+                                    </table>
+                                </div>
+                            `;
+                        }
+
+                        // Add best spots results if available
+                        if (responseData.best_spots && responseData.best_spots.length > 0) {
+                            const speciesName = responseData.best_spots[0].common_name;
+                            resultsHTML += `
+                                <div class="mb-4">
+                                    <h4>🎯 Top Locations for ${speciesName}</h4>
+                                    <p class="text-muted">Best spots within the search radius, ranked by suitability score</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Coordinates</th>
+                                                    <th>Score</th>
+                                                    <th>Assessment</th>
+                                                    <th>Top Factors</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                            `;
+
+                            for (const spot of responseData.best_spots) {
+                                const score = spot.score;
+                                const factorScores = spot.factor_scores || {};
+
+                                // Color code the score
+                                let scoreClass = 'text-success fw-bold';
+                                let assessment = 'Excellent';
+                                if (score < 90) {
+                                    scoreClass = 'text-success';
+                                    assessment = 'Very Good';
+                                }
+                                if (score < 75) {
+                                    scoreClass = 'text-primary';
+                                    assessment = 'Good';
+                                }
+                                if (score < 60) {
+                                    scoreClass = 'text-warning';
+                                    assessment = 'Fair';
+                                }
+
+                                // Format top factors
+                                const topFactors = Object.entries(factorScores)
+                                    .sort((a, b) => b[1] - a[1])
+                                    .slice(0, 3)
+                                    .map(([factor, score]) => {
+                                        const formattedFactor = factor.replace(/_/g, ' ');
+                                        return `${formattedFactor}: ${Math.round(score)}`;
+                                    })
+                                    .join(', ');
+
+                                // Add rank badge
+                                let rankBadge = '';
+                                if (spot.rank === 1) {
+                                    rankBadge = '<span class="badge bg-warning text-dark">🥇</span>';
+                                } else if (spot.rank === 2) {
+                                    rankBadge = '<span class="badge bg-secondary">🥈</span>';
+                                } else if (spot.rank === 3) {
+                                    rankBadge = '<span class="badge bg-secondary">🥉</span>';
+                                } else {
+                                    rankBadge = `<span class="badge bg-secondary">#${spot.rank}</span>`;
+                                }
+
+                                resultsHTML += `
+                                    <tr>
+                                        <td>${rankBadge}</td>
+                                        <td class="font-monospace small">${spot.lat.toFixed(4)}, ${spot.lon.toFixed(4)}</td>
+                                        <td class="${scoreClass}">${Math.round(score)}/100</td>
+                                        <td>${assessment}</td>
+                                        <td class="small text-muted">${topFactors}</td>
+                                    </tr>
+                                `;
+                            }
+
+                            resultsHTML += `
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <p class="small text-muted mt-2">
+                                        💡 Copy coordinates and paste them into mapping apps like Google Maps to navigate to these locations
+                                    </p>
+                                </div>
+                            `;
+                        }
+
+                        // Add grid summary if available
+                        if (responseData.grid_summary && Object.keys(responseData.grid_summary).length > 0) {
+                            resultsHTML += `
+                                <div class="mb-4">
+                                    <h4>📊 Grid Analysis Summary</h4>
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Species</th>
+                                                <th>Average</th>
+                                                <th>Max</th>
+                                                <th>Min</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                            `;
+
+                            for (const [speciesId, summary] of Object.entries(responseData.grid_summary)) {
+                                resultsHTML += `
+                                    <tr>
+                                        <td>${summary.common_name}</td>
+                                        <td>${summary.avg_score}</td>
+                                        <td class="text-success">${summary.max_score}</td>
+                                        <td class="text-danger">${summary.min_score}</td>
+                                    </tr>
+                                `;
+                            }
+
+                            resultsHTML += `
+                                        </tbody>
+                                    </table>
+                                </div>
+                            `;
+                        }
+
+                        resultsHTML += `<pre>${responseData.output}</pre>`;
+
                         // Add map if it was generated
                         if (responseData.map_html) {
                             resultsHTML += `

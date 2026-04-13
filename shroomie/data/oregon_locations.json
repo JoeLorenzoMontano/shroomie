@@ -1,0 +1,129 @@
+{
+  "coast": {
+    "name": "Oregon Coast",
+    "locations": {
+      "tillamook": {
+        "name": "Tillamook",
+        "lat": 45.4562,
+        "lon": -123.8437,
+        "elevation": 10,
+        "description": "Coastal forest, high moisture, excellent for chanterelles"
+      },
+      "astoria": {
+        "name": "Astoria",
+        "lat": 46.1879,
+        "lon": -123.8313,
+        "elevation": 6,
+        "description": "North coast, temperate rainforest"
+      },
+      "newport": {
+        "name": "Newport",
+        "lat": 44.6368,
+        "lon": -124.0534,
+        "elevation": 45,
+        "description": "Central coast"
+      },
+      "florence": {
+        "name": "Florence",
+        "lat": 43.9829,
+        "lon": -124.0984,
+        "elevation": 8,
+        "description": "South coast"
+      }
+    }
+  },
+  "valley": {
+    "name": "Willamette Valley",
+    "locations": {
+      "portland": {
+        "name": "Portland",
+        "lat": 45.5152,
+        "lon": -122.6784,
+        "elevation": 50,
+        "description": "Urban/suburban foraging areas"
+      },
+      "salem": {
+        "name": "Salem",
+        "lat": 44.9429,
+        "lon": -123.0351,
+        "elevation": 47,
+        "description": "Valley floor, mixed forests"
+      },
+      "eugene": {
+        "name": "Eugene",
+        "lat": 44.0521,
+        "lon": -123.0868,
+        "elevation": 130,
+        "description": "South valley, university forests"
+      },
+      "mcminnville": {
+        "name": "McMinnville",
+        "lat": 45.2104,
+        "lon": -123.1987,
+        "elevation": 46,
+        "description": "Wine country, oak woodlands"
+      },
+      "little_hebo": {
+        "name": "Little Hebo (near McMinnville)",
+        "lat": 45.1500,
+        "lon": -123.5000,
+        "elevation": 600,
+        "description": "Foothills near McMinnville, prime mushroom hunting area"
+      },
+      "corvallis": {
+        "name": "Corvallis",
+        "lat": 44.5646,
+        "lon": -123.2620,
+        "elevation": 70,
+        "description": "Mid-valley, research forests"
+      }
+    }
+  },
+  "cascades": {
+    "name": "Cascade Mountains",
+    "locations": {
+      "mount_hood": {
+        "name": "Mount Hood",
+        "lat": 45.3736,
+        "lon": -121.6960,
+        "elevation": 1800,
+        "description": "High elevation coniferous forests, matsutake territory"
+      },
+      "detroit_lake": {
+        "name": "Detroit Lake",
+        "lat": 44.7296,
+        "lon": -122.1542,
+        "elevation": 480,
+        "description": "Mid-elevation Cascades, diverse mushroom habitat"
+      },
+      "santiam_pass": {
+        "name": "Santiam Pass",
+        "lat": 44.4167,
+        "lon": -121.8833,
+        "elevation": 1476,
+        "description": "High Cascades pass, conifer forests"
+      },
+      "government_camp": {
+        "name": "Government Camp",
+        "lat": 45.2947,
+        "lon": -121.7508,
+        "elevation": 1200,
+        "description": "Mount Hood area, popular foraging"
+      },
+      "bend": {
+        "name": "Bend",
+        "lat": 44.0582,
+        "lon": -121.3153,
+        "elevation": 1116,
+        "description": "Eastern slopes, drier climate, ponderosa pine"
+      },
+      "sisters": {
+        "name": "Sisters",
+        "lat": 44.2912,
+        "lon": -121.5492,
+        "elevation": 984,
+        "description": "Central Cascades, pine forests"
+      }
+    }
+  }
+}
